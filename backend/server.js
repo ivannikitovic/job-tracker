@@ -1,12 +1,10 @@
 import express from "express";
 import cors from "cors";
-import mongodb from "mongodb";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-import user from "./src/routes/user.route.js";
-import UserModel from "./src/model/user.model.js";
-import jobs from "./src/routes/jobs.route.js";
-import JobsModel from "./src/model/jobs.model.js";
+import userRouter from "./src/routes/user.route.js";
+import jobsRouter from "./src/routes/jobs.route.js";
 
 dotenv.config();
 
@@ -20,30 +18,36 @@ const corsOptions = {
     credentials: true, // Enable cookies and other credentials
 };
 
+//app.use(cors(corsOptions)); // TODO: after frontend
 app.use(cors());
 app.use(express.json());
 
-app.use("/user", user);
-app.use("/jobs", jobs);
-app.get("/", (req, res) => { res.json({ 0: "hello world" }) });
+// Use the user and jobs routers
+app.use("/user", userRouter);
+app.use("/jobs", jobsRouter);
+
+app.get("/", (req, res) => {
+    res.json({ 0: "hello world" });
+});
+
 app.use("*", (req, res) => res.status(404).json({ error: "not found" }));
 
-const MongoClient = mongodb.MongoClient;
-MongoClient.connect(
-    process.env.MONGODB_URI,
-    {
-        maxPoolSize: 50,
-    }
-)
-.catch(err => {
-    console.log(`failed to connect to MongoDB: \n${err.stack}`)
-    process.exit(1);
-})
-.then(async client => {
-    await UserModel.injectDB(client);
-    await JobsModel.injectDB(client);
-    console.log(`connected to ${client.options.srvHost}`);
-    app.listen(port, () => {
-        console.log(`listening on port ${port}`);
+// Connect to MongoDB using Mongoose
+mongoose
+    .connect(process.env.MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        dbName: 'main'
+    })
+    .then(() => {
+        console.log("Connected to MongoDB");
+
+        // Start the Express server after connecting to the database
+        app.listen(port, () => {
+            console.log(`Listening on port ${port}`);
+        });
+    })
+    .catch((err) => {
+        console.error(`Failed to connect to MongoDB: ${err}`);
+        process.exit(1);
     });
-});

@@ -1,48 +1,35 @@
-import UserModel from "../model/user.model.js";
-import jwt from "jsonwebtoken";
+import UserService from "../services/user.service.js";
 
 export default class UserController {
     static async signUp(req, res, next) {
         try {
             const { email, password } = req.body;
-            const user = await UserModel.getUser(email);
-            if (user) {
-                res.status(409).json({ error: "user already exists" });
+            const user = await UserService.createUser(email, password);
+
+            if (user.error) {
+                res.status(409).json({ error: user.error }); // email in use
             } else {
-                const postResponse = await UserModel.addUser(email, password); // TODO: hash password
-                res.json(postResponse);
+                res.status(201).json(user); // user created
             }
-        } catch (e) {
-            console.error(`error signing up: ${e}`);
-            res.status(500).json({ error: e });
+        } catch (error) { //TODO: ValidationError handling
+            console.error(`Error signing up: ${error}`);
+            res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
     static async signIn(req, res, next) {
         try {
             const { email, password } = req.body;
-            const user = await UserModel.getUser(email);
-            if (!user) {
-                res.status(404).json({ error: "user does not exist" });
-            } else if (user.password === password) { // sign in successful
+            const signInResult = await UserService.signInUser(email, password);
 
-                const payload = {
-                    userId: user._id,
-                };
-
-                const token = jwt.sign(
-                    payload, 
-                    process.env.JWT_SECRET, 
-                    { expiresIn: "2h" }
-                );
-
-                res.status(200).json({ token: token });
+            if (signInResult.error) {
+                res.status(401).json({ error: signInResult.error }); // bad credentials
             } else {
-                res.status(401).json({ error: "incorrect password" });
+                res.status(200).json(signInResult); // return token
             }
-        } catch (e) {
-            console.error(`error signing in: ${e}`);
-            res.status(500).json({ error: e });
+        } catch (error) {
+            console.error(`Error signing in: ${error}`);
+            res.status(500).json({ error: "Internal Server Error" });
         }
     }
 }
