@@ -3,6 +3,8 @@ import cors from "cors";
 import mongodb from "mongodb";
 import dotenv from "dotenv";
 
+import user from "./src/routes/user.route.js";
+import UserModel from "./src/model/user.model.js";
 import jobs from "./src/routes/jobs.route.js";
 import JobsModel from "./src/model/jobs.model.js";
 
@@ -20,6 +22,8 @@ const corsOptions = {
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/user", user);
 app.use("/jobs", jobs);
 app.get("/", (req, res) => { res.json({ 0: "hello world" }) });
 app.use("*", (req, res) => res.status(404).json({ error: "not found" }));
@@ -36,6 +40,7 @@ MongoClient.connect(
     process.exit(1);
 })
 .then(async client => {
+    await UserModel.injectDB(client);
     await JobsModel.injectDB(client);
     console.log(`connected to ${client.options.srvHost}`);
     app.listen(port, () => {
