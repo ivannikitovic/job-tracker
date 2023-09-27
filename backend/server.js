@@ -3,6 +3,9 @@ import cors from "cors";
 import mongodb from "mongodb";
 import dotenv from "dotenv";
 
+import jobs from "./src/routes/jobs.route.js";
+import JobsModel from "./src/model/jobs.model.js";
+
 dotenv.config();
 
 const app = express();
@@ -17,7 +20,7 @@ const corsOptions = {
 
 app.use(cors());
 app.use(express.json());
-
+app.use("/jobs", jobs);
 app.get("/", (req, res) => { res.json({ 0: "hello world" }) });
 app.use("*", (req, res) => res.status(404).json({ error: "not found" }));
 
@@ -33,6 +36,7 @@ MongoClient.connect(
     process.exit(1);
 })
 .then(async client => {
+    await JobsModel.injectDB(client);
     console.log(`connected to ${client.options.srvHost}`);
     app.listen(port, () => {
         console.log(`listening on port ${port}`);
