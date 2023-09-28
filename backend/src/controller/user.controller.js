@@ -3,8 +3,8 @@ import UserService from "../services/user.service.js";
 export default class UserController {
     static async signUp(req, res, next) {
         try {
-            const { email, password } = req.body;
-            const user = await UserService.createUser(email, password);
+            const userData = req.body;
+            const user = await UserService.createUser(userData);
 
             if (user.error) {
                 res.status(409).json({ error: user.error }); // email in use
@@ -19,7 +19,10 @@ export default class UserController {
 
     static async signIn(req, res, next) {
         try {
-            const { email, password } = req.body;
+            const { 
+                email, 
+                password 
+            } = req.body;
             const token = await UserService.signInUser(email, password);
 
             if (token.error) {

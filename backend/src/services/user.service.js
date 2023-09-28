@@ -2,14 +2,14 @@ import User from "../model/user.model.js";
 import jwt from "jsonwebtoken";
 
 export default class UserService {
-    static async createUser(email, password) {
+    static async createUser(userData) {
         try {
-            const existingUser = await User.findOne({ email });
+            const existingUser = await User.findOne({ email: userData.email });
             if (existingUser) {
                 return { error: "Email already in use." };
             }
 
-            const newUser = new User({ email, password });
+            const newUser = new User(userData);
             await newUser.save();
 
             return newUser;
