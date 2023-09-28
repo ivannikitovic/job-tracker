@@ -20,12 +20,12 @@ export default class UserController {
     static async signIn(req, res, next) {
         try {
             const { email, password } = req.body;
-            const signInResult = await UserService.signInUser(email, password);
+            const token = await UserService.signInUser(email, password);
 
-            if (signInResult.error) {
-                res.status(401).json({ error: signInResult.error }); // bad credentials
+            if (token.error) {
+                res.status(401).json({ error: token.error }); // bad credentials
             } else {
-                res.status(200).json(signInResult); // return token
+                res.status(200).json(token); // return token
             }
         } catch (error) {
             console.error(`Error signing in: ${error}`);
