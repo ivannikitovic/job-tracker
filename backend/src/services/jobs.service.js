@@ -1,4 +1,5 @@
 import Job from "../model/jobs.model.js";
+import createHttpError from "http-errors";
 
 export default class JobsService {
     static async createJob(jobData) {
@@ -6,44 +7,73 @@ export default class JobsService {
             const job = new Job(jobData);
             return await job.save();
         } catch (error) {
-            console.log(`Error creating job: ${error}`);
-            throw error;
+            if (error.name == "ValidationError") {
+                throw createHttpError(400, error.message);
+            } else {
+                throw error;
+            }
         }
     }
 
     static async getJobById(jobId) {
         try {
-            return await Job.findById(jobId);
+            const job = await Job.findById(jobId);
+            if (!job) {
+                throw createHttpError(404, "Job not found");
+            }
+            return job;
         } catch (error) {
-            console.log(`Error getting job: ${error}`);
-            throw error;
+            if (error.name === "CastError") {
+                throw createHttpError(400, "Invalid job id");
+            } else {
+                throw error;
+            }
         }
+
     }
 
     static async getJobsByUserId(userId) {
         try {
-            return await Job.find({ user_id: userId });
+            const jobs = await Job.find({ user_id: userId });
+            return jobs;
         } catch (error) {
-            console.log(`Error getting jobs: ${error}`);
-            throw error;
+            if (error.name === "CastError") {
+                throw createHttpError(400, "Invalid user id");
+            } else {
+                throw error;
+            }
         }
     }
 
     static async updateJob(jobId, jobData) {
         try {
-            return await Job.findByIdAndUpdate(jobId, jobData, { new: true });
+            const job = await Job.findByIdAndUpdate(jobId, jobData, { new: true });
+            if (!job) {
+                throw createHttpError(404, "Job not found");
+            }
+            return job;
         } catch (error) {
-            console.log(`Error updating job: ${error}`);
-            throw error;
+            if (error.name === "CastError") {
+                throw createHttpError(400, "Invalid job id");
+            } else {
+                throw error;
+            }
         }
     }
 
     static async deleteJob(jobId) {
         try {
-            return await Job.findByIdAndDelete(jobId);
+            const job = await Job.findByIdAndDelete(jobId);
+            if (!job) {
+                throw createHttpError(404, "Job not found");
+            }
+            return job;
         } catch (error) {
-            console.log(`Error deleting job: ${error}`)
-            throw error;
+            if (error.name === "CastError") {
+                throw createHttpError(400, "Invalid job id");
+            } else {
+                throw error;
+            }
         }
     }
 }

@@ -7,8 +7,7 @@ export default class JobsController {
             const postResponse = await JobsService.createJob(jobData);
             res.json(postResponse);
         } catch (error) {
-            console.error(`error posting job: ${error.message}`);
-            res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
@@ -16,14 +15,9 @@ export default class JobsController {
         try {
             const { job_id } = req.params;
             const getResponse = await JobsService.getJobById(job_id);
-            if (!getResponse) {
-                res.status(404).json({ error: "Job not found." });
-            } else {
-                res.json(getResponse);
-            }
+            res.json(getResponse);
         } catch (error) {
-            console.error(`error getting job: ${error.message}`);
-            res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
@@ -33,8 +27,7 @@ export default class JobsController {
             const getResponse = await JobsService.getJobsByUserId(user_id);
             res.json(getResponse);
         } catch (error) {
-            console.error(`error getting jobs: ${error.message}`);
-            res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
@@ -45,8 +38,7 @@ export default class JobsController {
             const updateResponse = await JobsService.updateJob(job_id, jobData);
             res.json(updateResponse);
         } catch (error) {
-            console.error(`error updating job: ${error.message}`);
-            res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
@@ -54,14 +46,9 @@ export default class JobsController {
         try {
             const { job_id } = req.params;
             const deleteResponse = await JobsService.deleteJob(job_id);
-            if (!deleteResponse) {
-                res.status(404).json({ error: "Job not found." });
-            } else {
-                res.json(deleteResponse);
-            }
+            res.json(deleteResponse);
         } catch (error) {
-            console.error(`error deleting job: ${error.message}`);
-            res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 }

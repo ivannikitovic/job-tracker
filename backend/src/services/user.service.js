@@ -1,12 +1,13 @@
 import User from "../model/user.model.js";
 import jwt from "jsonwebtoken";
+import createHttpError from "http-errors";
 
 export default class UserService {
     static async createUser(userData) {
         try {
             const existingUser = await User.findOne({ email: userData.email });
             if (existingUser) {
-                return { error: "Email already in use." };
+                throw createHttpError(409, "Email already in use");
             }
 
             const newUser = new User(userData);
@@ -14,41 +15,47 @@ export default class UserService {
 
             return newUser;
         } catch (error) {
-            console.error(`Error creating user: ${error}`);
-            throw error;
+            if (error.name == "ValidationError") {
+                throw createHttpError(400, error.message);
+            } else {
+                throw error;
+            }
         }
     }
 
     static async signInUser(email, password) {
         try {
+            if (!email || !password) {
+                throw createHttpError(400, "Missing email or password.");
+            }
+
             const user = await User.findOne({ email });
             if (!user) {
-                return { error: "User does not exist." };
+                throw createHttpError(401, "User does not exist.");
             }
 
-            if (user.password === password) {
-                const payload = {
-                    userId: user._id,
-                };
-
-                const options = {
-                    expiresIn: "2h",
-                };
-
-                const secret = process.env.JWT_SECRET;
-
-                const token = jwt.sign(
-                    payload,
-                    secret,
-                    options
-                );
-
-                return { token };
-            } else {
-                return { error: "Incorrect password." };
+            if (user.password !== password) {
+                throw createHttpError(401, "Incorrect password.");
             }
+
+            const payload = {
+                userId: user._id,
+            };
+
+            const options = {
+                expiresIn: "2h",
+            };
+
+            const secret = process.env.JWT_SECRET;
+
+            const token = jwt.sign(
+                payload,
+                secret,
+                options
+            );
+
+            return { token };
         } catch (error) {
-            console.error(`Error signing in: ${error}.`);
             throw error;
         }
     }
