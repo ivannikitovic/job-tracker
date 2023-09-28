@@ -2,9 +2,12 @@ import Job from "../model/jobs.model.js";
 import createHttpError from "http-errors";
 
 export default class JobsService {
-    static async createJob(jobData) {
+    static async createJob(userId, jobData) {
         try {
-            const job = new Job(jobData);
+            const job = new Job({
+                ...jobData,
+                user_id: userId,
+            });
             return await job.save();
         } catch (error) {
             if (error.name == "ValidationError") {
@@ -45,9 +48,12 @@ export default class JobsService {
         }
     }
 
-    static async updateJob(jobId, jobData) {
+    static async updateJob(userId, jobId, jobData) {
         try {
-            const job = await Job.findByIdAndUpdate(jobId, jobData, { new: true });
+            const job = await Job.findByIdAndUpdate(jobId, {
+                ...jobData,
+                user_id: userId,
+            }, { new: true });
             if (!job) {
                 throw createHttpError(404, "Job not found");
             }

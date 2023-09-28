@@ -3,8 +3,9 @@ import JobsService from "../services/jobs.service.js";
 export default class JobsController {
     static async postJob(req, res, next) {
         try {
+            const { user_id } = req.params;
             const jobData = req.body;
-            const postResponse = await JobsService.createJob(jobData);
+            const postResponse = await JobsService.createJob(user_id, jobData);
             res.json(postResponse);
         } catch (error) {
             next(error);
@@ -33,9 +34,9 @@ export default class JobsController {
 
     static async putJob(req, res, next) {
         try {
-            const { job_id } = req.params;
+            const { user_id, job_id } = req.params;
             const jobData = req.body;
-            const updateResponse = await JobsService.updateJob(job_id, jobData);
+            const updateResponse = await JobsService.updateJob(user_id, job_id, jobData);
             res.json(updateResponse);
         } catch (error) {
             next(error);

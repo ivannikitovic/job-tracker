@@ -1,15 +1,16 @@
 import express from 'express';
 import JobsController from '../controller/jobs.controller.js';
 import { HttpError } from 'http-errors';
+import { authenticateUser } from '../utils/auth.js';
 
 const router = express.Router();
 
 router
-    .post('/', JobsController.postJob)
-    .get('/user/:user_id', JobsController.getJobs)
-    .get('/:job_id', JobsController.getJob)
-    .put('/:job_id', JobsController.putJob)
-    .delete('/:job_id', JobsController.deleteJob)
+    .post('/:user_id', authenticateUser, JobsController.postJob)
+    .get('/:user_id', authenticateUser, JobsController.getJobs)
+    .get('/:user_id/:job_id', authenticateUser, JobsController.getJob)
+    .put('/:user_id/:job_id', authenticateUser, JobsController.putJob)
+    .delete('/:user_id/:job_id', authenticateUser, JobsController.deleteJob)
     .use((error, req, res, next) => {
         if (error instanceof HttpError) {
             res.status(error.status).json({ error: error.message });
