@@ -1,6 +1,7 @@
 import User from "../model/user.model.js";
 import jwt from "jsonwebtoken";
 import createHttpError from "http-errors";
+import bcrypt from "bcrypt";
 
 export default class UserService {
     static async createUser(userData) {
@@ -10,7 +11,12 @@ export default class UserService {
                 throw createHttpError(409, "Email already in use");
             }
 
-            const newUser = new User(userData);
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(userData.password, salt);
+            const newUser = new User({
+                ...userData,
+                password: hashedPassword,
+            });
             await newUser.save();
 
             return newUser;
@@ -34,7 +40,8 @@ export default class UserService {
                 throw createHttpError(401, "User does not exist.");
             }
 
-            if (user.password !== password) {
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+            if (!isPasswordValid) {
                 throw createHttpError(401, "Incorrect password.");
             }
 
@@ -46,13 +53,7 @@ export default class UserService {
                 expiresIn: "2h",
             };
 
-            const secret = process.env.JWT_SECRET;
-
-            const token = jwt.sign(
-                payload,
-                secret,
-                options
-            );
+            const token = jwt.sign(payload, process.env.JWT_SECRET, options);
 
             return { token };
         } catch (error) {
