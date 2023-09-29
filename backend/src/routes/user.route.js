@@ -1,5 +1,5 @@
 import express from 'express';
-import UserController from '../controller/user.controller.js';
+import UserController from '../controllers/user.controller.js';
 import { HttpError } from 'http-errors';
 
 const router = express.Router();

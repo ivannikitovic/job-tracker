@@ -1,5 +1,5 @@
 import express from 'express';
-import JobsController from '../controller/jobs.controller.js';
+import JobsController from '../controllers/jobs.controller.js';
 import { HttpError } from 'http-errors';
 import { authenticateUser } from '../utils/auth.js';
 

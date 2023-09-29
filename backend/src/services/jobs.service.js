@@ -1,4 +1,4 @@
-import Job from "../model/jobs.model.js";
+import Job from "../models/jobs.model.js";
 import createHttpError from "http-errors";
 
 export default class JobsService {
