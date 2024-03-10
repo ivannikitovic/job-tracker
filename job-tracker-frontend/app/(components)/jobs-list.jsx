@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DeleteJob from "./delete-job";
 
 const getJobs = async () => {
     const headers = { Authorization: `Bearer ${process.env.BEARER_TOKEN}` };
@@ -20,6 +21,7 @@ export default async function JobsList() {
                             <Link href={`/job-page/${job._id}`}>
                                 {job.title}
                             </Link>
+                            <DeleteJob job_id={job._id} />
                         </li>
                     );
                 })}
