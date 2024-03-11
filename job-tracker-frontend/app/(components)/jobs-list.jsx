@@ -9,20 +9,23 @@ export default function JobsList() {
     const [jobs, setJobs] = useState([]);
 
     const userId = getCookie("userId");
+    console.log(userId);
 
     const removeJob = (id) => {
         setJobs(jobs.filter((job) => job._id !== id));
     };
 
     useEffect(() => {
-        fetch(`http://localhost:3001/jobs/${userId}`, {
-            credentials: "include",
-            cache: "no-store",
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                setJobs(data);
-            });
+        if (userId) {
+            fetch(`http://localhost:3001/jobs/${userId}`, {
+                credentials: "include",
+                cache: "no-store",
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setJobs(data);
+                });
+        }
     }, []);
 
     return (
