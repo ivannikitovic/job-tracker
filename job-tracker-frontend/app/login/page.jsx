@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
+"use client";
+
+import { setCookie } from "cookies-next";
 
 export default function Login() {
     const login = async (email, password) => {
-        "use server";
-
         const headers = {
             "Content-Type": "application/json",
         };
@@ -23,22 +23,18 @@ export default function Login() {
     };
 
     const create = async (formData) => {
-        "use server";
         const email = formData.get("email");
         const password = formData.get("password");
         const response = await login(email, password);
 
+        console.log(response);
+
         if ("token" in response) {
-            cookies().set({
-                name: "jwt",
-                value: response.token,
-                httpOnly: true,
+            setCookie("authToken", response.token, {
+                // httpOnly: true, TODO: add secure cookies
+                // secure: true,
             });
-            cookies().set({
-                name: "userId",
-                value: response.userId,
-                httpOnly: true,
-            });
+            setCookie("userId", response.userId);
         } else if ("error" in response) {
             console.log(response.error);
         }

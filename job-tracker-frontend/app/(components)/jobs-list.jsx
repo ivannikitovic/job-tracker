@@ -1,36 +1,51 @@
+"use client";
+
 import Link from "next/link";
 import DeleteJob from "./delete-job";
-import { cookies } from "next/headers";
+import { useEffect, useState } from "react";
+import { getCookie } from "cookies-next";
 
-export default async function JobsList() {
-    const getJobs = async () => {
-        const userId = cookies().get("userId").value;
-        const token = cookies().get("jwt").value;
+export default function JobsList() {
+    const [jobs, setJobs] = useState([]);
 
-        const headers = { Authorization: `Bearer ${token}` };
-        let jobs = await fetch(`http://localhost:3001/jobs/${userId}`, {
-            headers,
-            cache: "no-store",
-        });
-        return jobs.json();
+    const userId = getCookie("userId");
+
+    const removeJob = (id) => {
+        setJobs(jobs.filter((job) => job._id !== id));
     };
 
-    const jobs = await getJobs();
+    useEffect(() => {
+        fetch(`http://localhost:3001/jobs/${userId}`, {
+            credentials: "include",
+            cache: "no-store",
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setJobs(data);
+            });
+    }, []);
 
     return (
         <div>
-            <ul>
-                {jobs.map((job) => {
-                    return (
-                        <li key={job._id} className="mb-3">
-                            <Link href={`/job-page/${job._id}`}>
-                                {job.title}
-                            </Link>
-                            <DeleteJob job_id={job._id} />
-                        </li>
-                    );
-                })}
-            </ul>
+            {jobs.length ? (
+                <ul>
+                    {jobs.map((job) => {
+                        return (
+                            <li key={job._id} className="mb-3">
+                                <Link href={`/job-page/${job._id}`}>
+                                    {job.title}
+                                </Link>
+                                <DeleteJob
+                                    jobId={job._id}
+                                    removeJob={removeJob}
+                                />
+                            </li>
+                        );
+                    })}
+                </ul>
+            ) : (
+                <></>
+            )}
         </div>
     );
 }

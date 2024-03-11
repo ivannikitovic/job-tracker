@@ -13,6 +13,9 @@ export default function Nav() {
             <Link href={`/login`} className="text-blue-500 ml-5">
                 Login
             </Link>
+            <Link href={`/logout`} className="text-blue-500 ml-5">
+                Logout
+            </Link>
         </div>
     );
 }

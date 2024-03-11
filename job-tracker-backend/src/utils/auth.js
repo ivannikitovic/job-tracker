@@ -25,7 +25,8 @@ export const verifyToken = (token) => {
 
 export const authenticateUser = (req, res, next) => {
     try {
-        const token = extractTokenFromHeader(req.headers.authorization);
+        // const token = extractTokenFromHeader(req.headers.authorization);
+        const token = req.cookies.authToken;
         const decodedToken = verifyToken(token);
         if (req.params.user_id !== decodedToken.userId) {
             throw createHttpError(401, "Unauthorized");

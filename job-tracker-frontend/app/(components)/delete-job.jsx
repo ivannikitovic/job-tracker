@@ -1,23 +1,22 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { getCookie } from "cookies-next";
 import React from "react";
 
-export default function DeleteJob({ job_id }) {
-    const router = useRouter();
+export default function DeleteJob({ jobId, removeJob }) {
+    const userId = getCookie("userId");
 
     const deleteJob = async () => {
-        const headers = { Authorization: `Bearer ${process.env.BEARER_TOKEN}` };
         let response = await fetch(
-            `http://localhost:3001/jobs/${process.env.USER_ID}/${job_id}`,
+            `http://localhost:3001/jobs/${userId}/${jobId}`,
             {
-                headers,
+                credentials: "include",
                 method: "DELETE",
             }
         );
 
         if (response.ok) {
-            router.refresh();
+            removeJob(jobId);
         }
     };
 

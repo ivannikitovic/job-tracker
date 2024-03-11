@@ -5,21 +5,24 @@ import dotenv from "dotenv";
 
 import userRouter from "./src/routes/user.route.js";
 import jobsRouter from "./src/routes/jobs.route.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 8000;
 
+app.use(cookieParser());
+
 // Configure CORS
 const corsOptions = {
-    origin: "http://yourfrontenddomain.com", // Replace with frontend domain
+    origin: "http://localhost:3000", // Replace with frontend domain
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // Enable cookies and other credentials
 };
 
-//app.use(cors(corsOptions)); // TODO: after frontend
-app.use(cors());
+app.use(cors(corsOptions)); // TODO: after frontend
+//app.use(cors());
 app.use(express.json());
 
 // Use the user and jobs routers
@@ -37,7 +40,7 @@ mongoose
     .connect(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        dbName: 'main'
+        dbName: "main",
     })
     .then(() => {
         console.log("Connected to MongoDB");
