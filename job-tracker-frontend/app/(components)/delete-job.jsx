@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-export default async function DeleteJob({ job_id }) {
+export default function DeleteJob({ job_id }) {
     const router = useRouter();
 
     const deleteJob = async () => {
