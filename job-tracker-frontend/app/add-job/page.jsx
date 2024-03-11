@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+// import { cookies } from "next/headers";
 
 export default function Page() {
     const router = useRouter();
@@ -16,6 +17,11 @@ export default function Page() {
     const [url, setUrl] = useState("");
 
     const addJob = async (refresh) => {
+        // const userId = cookies().get("userId").value;
+        // const token = cookies().get("jwt").value;
+
+        // console.log(userId, token);
+
         const body = {
             title: title,
             company: company,
@@ -28,11 +34,11 @@ export default function Page() {
         };
 
         const headers = {
-            Authorization: `Bearer ${process.env.BEARER_TOKEN}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         };
 
-        let response = await fetch(`jobs/${process.env.USER_ID}`, {
+        let response = await fetch(`jobs/${userId}`, {
             headers,
             method: "POST",
             body: JSON.stringify(body),

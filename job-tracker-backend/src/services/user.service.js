@@ -40,7 +40,10 @@ export default class UserService {
                 throw createHttpError(401, "User does not exist.");
             }
 
-            const isPasswordValid = await bcrypt.compare(password, user.password);
+            const isPasswordValid = await bcrypt.compare(
+                password,
+                user.password
+            );
             if (!isPasswordValid) {
                 throw createHttpError(401, "Incorrect password.");
             }
@@ -50,12 +53,13 @@ export default class UserService {
             };
 
             const options = {
-                expiresIn: "2h",
+                expiresIn: "24h",
             };
 
+            const userId = user._id;
             const token = jwt.sign(payload, process.env.JWT_SECRET, options);
 
-            return { token };
+            return { userId, token };
         } catch (error) {
             throw error;
         }

@@ -1,17 +1,22 @@
 import Link from "next/link";
 import DeleteJob from "./delete-job";
-
-const getJobs = async () => {
-    const headers = { Authorization: `Bearer ${process.env.BEARER_TOKEN}` };
-    let jobs = await fetch(
-        `http://localhost:3001/jobs/${process.env.USER_ID}`,
-        { headers, cache: "no-store" }
-    );
-    return jobs.json();
-};
+import { cookies } from "next/headers";
 
 export default async function JobsList() {
+    const getJobs = async () => {
+        const userId = cookies().get("userId").value;
+        const token = cookies().get("jwt").value;
+
+        const headers = { Authorization: `Bearer ${token}` };
+        let jobs = await fetch(`http://localhost:3001/jobs/${userId}`, {
+            headers,
+            cache: "no-store",
+        });
+        return jobs.json();
+    };
+
     const jobs = await getJobs();
+
     return (
         <div>
             <ul>
