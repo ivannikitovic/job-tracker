@@ -8,7 +8,7 @@ import { getCookie } from "cookies-next";
 
 export default function Nav() {
     const [isOpen, setIsOpen] = useState(false);
-    let userId = getCookie("userId");
+    const [userId, setUserId] = useState(getCookie("userId"));
 
     const openMenu = () => {
         setIsOpen(true);
@@ -20,13 +20,18 @@ export default function Nav() {
 
     return (
         <>
-            <div className="lg:hidden">
-                <button onClick={openMenu}>open menu</button>
+            <div className="flex h-screen fixed justify-center lg:hidden">
+                <button
+                    className="m-auto opacity-60 hover:opacity-100 transition pt-5 pb-5 pr-2 pl-2 rounded-r-lg bg-gray-300"
+                    onClick={openMenu}
+                >
+                    &gt;
+                </button>
             </div>
             <div
                 className={`h-full lg:flex lg:relative fixed ${
                     isOpen ? "" : "hidden"
-                } flex-col w-64 border-r bg-white border-gray-300`}
+                } flex-col w-64 lg:border-r bg-white lg:border-gray-300`}
             >
                 <div className="p-8 flex justify-center border-b border-gray-300">
                     <Image src={logo} width={128} alt="Job Tracker"></Image>
@@ -62,9 +67,14 @@ export default function Nav() {
             </div>
             {isOpen && (
                 <div className="lg:hidden ml-64 bg-gray-500 w-full h-full fixed bg-opacity-50">
-                    <button className="m-5" onClick={closeMenu}>
-                        close menu
-                    </button>
+                    <div className="flex h-screen fixed justify-center lg:hidden">
+                        <button
+                            className="m-auto opacity-100 hover:opacity-60 transition pt-5 pb-5 pr-2 pl-2 rounded-r-lg bg-white"
+                            onClick={closeMenu}
+                        >
+                            &lt;
+                        </button>
+                    </div>
                 </div>
             )}
         </>

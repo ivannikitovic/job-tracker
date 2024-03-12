@@ -11,9 +11,9 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body>
-                <div className="flex flex-col lg:flex-row w-screen h-screen">
+                <div className="flex flex-row w-screen h-screen">
                     <Nav></Nav>
-                    <main>{children}</main>
+                    <main className="m-5">{children}</main>
                 </div>
             </body>
         </html>
