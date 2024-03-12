@@ -21,8 +21,8 @@ export default function DeleteJob({ jobId, removeJob }) {
     };
 
     return (
-        <button className="ml-3 text-red-500" onClick={deleteJob}>
-            X
+        <button className="text-red-500" onClick={deleteJob}>
+            delete
         </button>
     );
 }

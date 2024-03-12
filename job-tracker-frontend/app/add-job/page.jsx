@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 
@@ -54,7 +54,7 @@ export default function Page() {
 
     return (
         <div>
-            <div className="flex flex-col mb-3">
+            <div className="flex flex-col w-96 mb-3">
                 <div className="flex flex-row justify-between mb-1">
                     <label>Job Title</label>
                     <p className="text-gray-500">Required</p>
@@ -148,7 +148,7 @@ export default function Page() {
             <div className="flex flex-row items-baseline">
                 <button
                     onClick={() => addJob(router.refresh)}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                    className="transition hover:text-blue-500 border hover:bg-gray-300 border-gray-300 text-black py-2 px-8 rounded-lg"
                 >
                     Add
                 </button>

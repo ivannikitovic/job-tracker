@@ -39,28 +39,28 @@ export default function Nav() {
                 <Link
                     href={`/`}
                     onClick={closeMenu}
-                    className="p-4 flex justify-center hover:bg-gray-100 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
+                    className="p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
                 >
                     My Jobs
                 </Link>
                 <Link
                     href={`/add-job`}
                     onClick={closeMenu}
-                    className="p-4 flex justify-center hover:bg-gray-100 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
+                    className="p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
                 >
                     Add Job
                 </Link>
                 <Link
                     href={`/login`}
                     onClick={closeMenu}
-                    className="p-4 flex justify-center hover:bg-gray-100 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
+                    className="p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
                 >
                     Login
                 </Link>
                 <Link
                     href={`/profile`}
                     onClick={closeMenu}
-                    className="p-4 flex justify-center hover:bg-gray-100 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
+                    className="p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
                 >
                     My Profile
                 </Link>
