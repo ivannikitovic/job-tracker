@@ -28,12 +28,12 @@ export default function JobsList() {
     }, []);
 
     return (
-        <div>
-            {jobs.length ? (
-                <ul>
-                    {jobs.map((job) => {
-                        return (
-                            <>
+        <div className="flex flex-col">
+            <div className="flex flex-row space-x-5">
+                {jobs.length ? (
+                    <ul>
+                        {jobs.map((job) => {
+                            return (
                                 <li key={job._id} className="mb-3">
                                     <div className="border border-gray-300 rounded-lg w-64 p-3">
                                         <div>
@@ -54,14 +54,14 @@ export default function JobsList() {
                                         </div>
                                     </div>
                                 </li>
-                                <ActionBar></ActionBar>
-                            </>
-                        );
-                    })}
-                </ul>
-            ) : (
-                <></>
-            )}
+                            );
+                        })}
+                    </ul>
+                ) : (
+                    <></>
+                )}
+            </div>
+            <ActionBar></ActionBar>
         </div>
     );
 }
