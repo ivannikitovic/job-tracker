@@ -27,8 +27,6 @@ export default function Login() {
         const password = formData.get("password");
         const response = await login(email, password);
 
-        console.log(response);
-
         if ("token" in response) {
             setCookie("authToken", response.token, {
                 // httpOnly: true, TODO: add secure cookies

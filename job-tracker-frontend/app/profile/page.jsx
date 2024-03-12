@@ -3,7 +3,7 @@
 import { deleteCookie } from "cookies-next";
 import React from "react";
 
-export default function Logout() {
+export default function Profile() {
     const logOut = () => {
         deleteCookie("authToken");
         deleteCookie("userId");

@@ -9,7 +9,6 @@ export default function JobsList() {
     const [jobs, setJobs] = useState([]);
 
     const userId = getCookie("userId");
-    console.log(userId);
 
     const removeJob = (id) => {
         setJobs(jobs.filter((job) => job._id !== id));
