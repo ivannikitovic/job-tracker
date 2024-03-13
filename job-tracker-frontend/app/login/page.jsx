@@ -1,8 +1,11 @@
 "use client";
 
 import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+    const router = useRouter();
+
     const login = async (email, password) => {
         const headers = {
             "Content-Type": "application/json",
@@ -33,13 +36,15 @@ export default function Login() {
                 // secure: true,
             });
             setCookie("userId", response.userId);
+
+            router.push("/");
         } else if ("error" in response) {
             console.log(response.error);
         }
     };
 
     return (
-        <div>
+        <div className="m-5">
             <form action={create}>
                 <input className="border" type="email" name="email" />
                 <input className="border" type="password" name="password" />

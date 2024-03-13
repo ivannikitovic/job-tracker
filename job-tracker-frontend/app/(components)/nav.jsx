@@ -33,30 +33,33 @@ export default function Nav() {
                     isOpen ? "" : "hidden"
                 } flex-col w-48 lg:border-r bg-white lg:border-gray-300`}
             >
-                <div className="p-8 flex justify-center border-b border-gray-300">
-                    <Image src={logo} width={128} alt="Job Tracker"></Image>
+                <div className="flex justify-between h-full flex-col">
+                    <div className="flex flex-col">
+                        <div className="p-8 flex justify-center border-b border-gray-300">
+                            <Image
+                                src={logo}
+                                width={128}
+                                alt="Job Tracker"
+                            ></Image>
+                        </div>
+                        <Link
+                            href={`/`}
+                            onClick={closeMenu}
+                            className="p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
+                        >
+                            My Jobs
+                        </Link>
+                    </div>
+                    <div className="pt-3 pb-3 flex justify-center border-t border-gray-300">
+                        <Link
+                            href={`/profile`}
+                            onClick={closeMenu}
+                            className="w-full p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
+                        >
+                            My Profile
+                        </Link>
+                    </div>
                 </div>
-                <Link
-                    href={`/`}
-                    onClick={closeMenu}
-                    className="p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
-                >
-                    My Jobs
-                </Link>
-                <Link
-                    href={`/login`}
-                    onClick={closeMenu}
-                    className="p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
-                >
-                    Login
-                </Link>
-                <Link
-                    href={`/profile`}
-                    onClick={closeMenu}
-                    className="p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
-                >
-                    My Profile
-                </Link>
             </div>
             {isOpen && (
                 <div
