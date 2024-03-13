@@ -6,7 +6,9 @@ import { getCookie } from "cookies-next";
 
 export default function AddJob({ addJob, setAddJobOpen }) {
     const router = useRouter();
+    const [userId, setUserId] = useState(getCookie("userId"));
     const [status, setStatus] = useState(null);
+
     const [title, setTitle] = useState("");
     const [company, setCompany] = useState("");
     const [location, setLocation] = useState("");
@@ -15,8 +17,6 @@ export default function AddJob({ addJob, setAddJobOpen }) {
     const [stage, setStage] = useState("");
     const [deadline, setDeadline] = useState("");
     const [url, setUrl] = useState("");
-
-    const userId = getCookie("userId");
 
     const postJob = async (refresh) => {
         const body = {
@@ -50,11 +50,11 @@ export default function AddJob({ addJob, setAddJobOpen }) {
             }
         });
 
-        refresh();
+        router.refresh();
     };
 
     return (
-        <div className="flex flex-col md:w-96 w-80 lg:w-[32rem]">
+        <div className="flex flex-col md:w-96 w-[22rem] lg:w-[32rem]">
             <div className="flex flex-col mb-3">
                 <div className="flex flex-row justify-between mb-1">
                     <label>Job Title</label>
