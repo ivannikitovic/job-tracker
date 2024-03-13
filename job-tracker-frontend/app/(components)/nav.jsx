@@ -50,11 +50,11 @@ export default function Nav() {
                             My Jobs
                         </Link>
                     </div>
-                    <div className="pt-3 pb-3 flex justify-center border-t border-gray-300">
+                    <div className="p-1 flex justify-center border-t border-gray-300">
                         <Link
                             href={`/profile`}
                             onClick={closeMenu}
-                            className="w-full p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
+                            className="w-full p-4 pt-6 pb-6 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg"
                         >
                             My Profile
                         </Link>

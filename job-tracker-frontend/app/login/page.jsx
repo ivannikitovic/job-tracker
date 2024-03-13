@@ -37,6 +37,7 @@ export default function Login() {
             });
             setCookie("userId", response.userId);
 
+            setTimeout(500);
             router.push("/");
         } else if ("error" in response) {
             console.log(response.error);

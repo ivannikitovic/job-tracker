@@ -8,9 +8,9 @@ export default function Profile() {
     const router = useRouter();
 
     const logOut = () => {
+        router.push("/login");
         deleteCookie("authToken");
         deleteCookie("userId");
-        router.push("/login");
     };
 
     return <button onClick={logOut}>Click here to log out.</button>;
