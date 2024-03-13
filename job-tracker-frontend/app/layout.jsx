@@ -11,11 +11,11 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body>
-                <div className="flex flex-row w-screen h-screen">
+                <div className=" bg-gradient-to-br from-indigo-500  via-purple-500  to-pink-500 flex flex-row w-screen h-screen">
                     <nav className="z-50">
                         <Nav></Nav>
                     </nav>
-                    <main className="m-5">{children}</main>
+                    <main>{children}</main>
                 </div>
             </body>
         </html>

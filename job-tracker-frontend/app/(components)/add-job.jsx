@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 
-export default function Page() {
+export default function AddJob({ addJob, setAddJobOpen }) {
     const router = useRouter();
     const [status, setStatus] = useState(null);
     const [title, setTitle] = useState("");
@@ -18,7 +18,7 @@ export default function Page() {
 
     const userId = getCookie("userId");
 
-    const addJob = async (refresh) => {
+    const postJob = async (refresh) => {
         const body = {
             title: title,
             company: company,
@@ -46,6 +46,7 @@ export default function Page() {
                 setStatus(false);
             } else {
                 setStatus(true);
+                addJob(data);
             }
         });
 
@@ -53,8 +54,8 @@ export default function Page() {
     };
 
     return (
-        <div>
-            <div className="flex flex-col w-96 mb-3">
+        <div className="flex flex-col md:w-96 w-80 lg:w-[32rem]">
+            <div className="flex flex-col mb-3">
                 <div className="flex flex-row justify-between mb-1">
                     <label>Job Title</label>
                     <p className="text-gray-500">Required</p>
@@ -62,7 +63,7 @@ export default function Page() {
                 <input
                     name="title"
                     type="text"
-                    className="border border-gray-300 p-2.5 rounded-lg py-2"
+                    className="border w-full border-gray-300 p-2.5 rounded-lg py-2"
                     placeholder="e.g. Software Engineer"
                     onChange={(e) => setTitle(e.target.value)}
                     required
@@ -134,7 +135,7 @@ export default function Page() {
                     required
                 />
             </div>
-            <div className="flex flex-col mb-3">
+            <div className="flex flex-col mb-5">
                 <label className="mb-1">URL</label>
                 <input
                     name="title"
@@ -145,24 +146,28 @@ export default function Page() {
                     required
                 />
             </div>
-            <div className="flex flex-row items-baseline">
-                <button
-                    onClick={() => addJob(router.refresh)}
-                    className="transition hover:text-blue-500 border hover:bg-gray-300 border-gray-300 text-black py-2 px-8 rounded-lg"
-                >
-                    Add
-                </button>
-                <div className="ml-5">
+            <div className="flex flex-row justify-between items-baseline">
+                <div>
                     {status === true && (
-                        <p className="text-green-500">
-                            Job added successfully.
-                        </p>
+                        <p className="text-green-500">Job added.</p>
                     )}
                     {status === false && (
-                        <p className="text-red-500">
-                            Encountered error while adding job.
-                        </p>
+                        <p className="text-red-500">Encountered error.</p>
                     )}
+                </div>
+                <div className="flex flex-row space-x-3">
+                    <button
+                        onClick={() => setAddJobOpen(false)}
+                        className="transition hover:text-blue-500 border hover:bg-gray-200 border-gray-300 text-black py-2 w-28 rounded-lg"
+                    >
+                        Close
+                    </button>
+                    <button
+                        onClick={() => postJob(router.refresh)}
+                        className="transition text-white bg-blue-500 border hover:bg-blue-400 border-opacity-0 py-2 w-28 rounded-lg"
+                    >
+                        Add
+                    </button>
                 </div>
             </div>
         </div>

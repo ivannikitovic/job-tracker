@@ -22,7 +22,7 @@ export default function Nav() {
         <>
             <div className="flex h-screen fixed justify-center lg:hidden">
                 <button
-                    className="m-auto opacity-60 hover:opacity-100 transition pt-5 pb-5 pr-2 pl-2 rounded-r-lg bg-gray-300"
+                    className="m-auto opacity-60 hover:opacity-100 transition pt-6 pb-6 pr-3 pl-3 rounded-r-lg bg-gray-300"
                     onClick={openMenu}
                 >
                     &gt;
@@ -31,7 +31,7 @@ export default function Nav() {
             <div
                 className={`h-full lg:flex lg:relative fixed ${
                     isOpen ? "" : "hidden"
-                } flex-col w-64 lg:border-r bg-white lg:border-gray-300`}
+                } flex-col w-48 lg:border-r bg-white lg:border-gray-300`}
             >
                 <div className="p-8 flex justify-center border-b border-gray-300">
                     <Image src={logo} width={128} alt="Job Tracker"></Image>
@@ -42,13 +42,6 @@ export default function Nav() {
                     className="p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
                 >
                     My Jobs
-                </Link>
-                <Link
-                    href={`/add-job`}
-                    onClick={closeMenu}
-                    className="p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
-                >
-                    Add Job
                 </Link>
                 <Link
                     href={`/login`}
@@ -66,12 +59,12 @@ export default function Nav() {
                 </Link>
             </div>
             {isOpen && (
-                <div className="lg:hidden ml-64 bg-gray-500 w-full h-full fixed bg-opacity-50">
+                <div
+                    className="lg:hidden ml-48 bg-gray-500 w-full h-full fixed bg-opacity-50"
+                    onClick={closeMenu}
+                >
                     <div className="flex h-screen fixed justify-center lg:hidden">
-                        <button
-                            className="m-auto opacity-100 hover:opacity-60 transition pt-5 pb-5 pr-2 pl-2 rounded-r-lg bg-white"
-                            onClick={closeMenu}
-                        >
+                        <button className="m-auto opacity-100 hover:opacity-60 transition pt-6 pb-6 pr-3 pl-3 rounded-r-lg bg-white">
                             &lt;
                         </button>
                     </div>
