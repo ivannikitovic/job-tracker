@@ -94,7 +94,7 @@ export default function JobsList() {
                                         onClick={() =>
                                             setCurrentJobOpen(job._id)
                                         }
-                                        className="bg-white rounded-lg w-64 p-3 hover:opacity-80"
+                                        className="group flex justify-between items-center bg-white rounded-lg w-64 p-3 transition ease-in-out hover:bg-opacity-65"
                                     >
                                         <div>
                                             <h1>{job.title}</h1>
@@ -102,8 +102,8 @@ export default function JobsList() {
                                             <h2>{job.location}</h2>
                                         </div>
                                         <div
+                                            className="hidden group-hover:block"
                                             onClick={ignoreChildClick}
-                                            className="flex space-x-3 flex-row"
                                         >
                                             <DeleteJob
                                                 jobId={job._id}

@@ -2,6 +2,7 @@
 
 import { getCookie } from "cookies-next";
 import React from "react";
+import { GoTrash } from "react-icons/go";
 
 export default function DeleteJob({ jobId, removeJob }) {
     const userId = getCookie("userId");
@@ -21,8 +22,8 @@ export default function DeleteJob({ jobId, removeJob }) {
     };
 
     return (
-        <button className="text-red-500" onClick={deleteJob}>
-            delete
+        <button className="text-red-500 hover:text-red-700" onClick={deleteJob}>
+            <GoTrash size={24} />
         </button>
     );
 }
