@@ -31,9 +31,9 @@ export default function Nav() {
             <div
                 className={`h-full lg:flex lg:relative fixed ${
                     isOpen ? "" : "hidden"
-                } flex-col w-48 lg:border-r bg-white lg:border-gray-300`}
+                } flex-col w-48 `}
             >
-                <div className="flex justify-between h-full flex-col">
+                <div className="flex fixed bg-white lg:border-r  lg:border-gray-300 justify-between h-full flex-col">
                     <div className="flex flex-col">
                         <div className="p-8 flex justify-center border-b border-gray-300">
                             <Image

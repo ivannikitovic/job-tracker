@@ -121,7 +121,7 @@ export default function JobView({ updateJob, jobId, setCurrentJobOpen }) {
                                 <div className="flex flex-row space-x-3">
                                     <button
                                         onClick={() => setCurrentJobOpen(null)}
-                                        className="transition hover:text-blue-500 border hover:bg-gray-200 border-gray-300 text-black py-2 w-28 rounded-lg"
+                                        className="transition hover:text-blue-500 hover:bg-gray-200 text-black py-2 w-28 rounded-lg"
                                     >
                                         Close
                                     </button>
@@ -254,7 +254,7 @@ export default function JobView({ updateJob, jobId, setCurrentJobOpen }) {
                         <div className="flex flex-row space-x-3">
                             <button
                                 onClick={() => setIsEditing(false)}
-                                className="transition hover:text-blue-500 border hover:bg-gray-200 border-gray-300 text-black py-2 w-28 rounded-lg"
+                                className="transition hover:text-blue-500 hover:bg-gray-200 text-black py-2 w-28 rounded-lg"
                             >
                                 Back
                             </button>

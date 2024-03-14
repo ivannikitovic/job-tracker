@@ -153,7 +153,7 @@ export default function AddJob({ addJob, setAddJobOpen }) {
             <div className="flex flex-col mb-3">
                 <div className="flex flex-row justify-between mb-1">
                     <label>Stage</label>
-                    <p className="text-gray-500">Select</p>
+                    <p className="text-gray-500">Required</p>
                 </div>
                 <select
                     name="title"
@@ -209,7 +209,7 @@ export default function AddJob({ addJob, setAddJobOpen }) {
                 <div className="flex flex-row space-x-3">
                     <button
                         onClick={() => setAddJobOpen(false)}
-                        className="transition hover:text-blue-500 border hover:bg-gray-200 border-gray-300 text-black py-2 w-28 rounded-lg"
+                        className="transition hover:text-blue-500 hover:bg-gray-200 text-black py-2 w-28 rounded-lg"
                     >
                         Close
                     </button>

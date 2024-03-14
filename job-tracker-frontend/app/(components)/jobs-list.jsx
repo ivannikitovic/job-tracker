@@ -84,40 +84,207 @@ export default function JobsList() {
                 </div>
             )}
 
-            <div className="p-5 flex flex-row space-x-5">
-                {jobs.length ? (
-                    <ul>
-                        {jobs.map((job) => {
-                            return (
-                                <li key={job._id} className="mb-3">
-                                    <div
-                                        onClick={() =>
-                                            setCurrentJobOpen(job._id)
-                                        }
-                                        className="group flex justify-between items-center bg-white rounded-lg w-64 p-3 transition ease-in-out hover:bg-opacity-65"
-                                    >
-                                        <div>
-                                            <h1>{job.title}</h1>
-                                            <h2>{job.company}</h2>
-                                            <h2>{job.location}</h2>
-                                        </div>
-                                        <div
-                                            className="hidden group-hover:block"
-                                            onClick={ignoreChildClick}
-                                        >
-                                            <DeleteJob
-                                                jobId={job._id}
-                                                removeJob={removeJob}
-                                            />
-                                        </div>
-                                    </div>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                ) : (
-                    <></>
-                )}
+            <div className="flex flex-row justify-between m-5 gap-3">
+                <div>
+                    <div className="flex justify-center bg-white w-64 p-5 pt-7 pb-7 rounded-lg mb-3">
+                        <div>Wishlist</div>
+                    </div>
+                    <div className="flex flex-row space-x-5">
+                        {jobs.length ? (
+                            <ul>
+                                {jobs.map((job) => {
+                                    return (
+                                        <li key={job._id} className="mb-3">
+                                            <div
+                                                onClick={() =>
+                                                    setCurrentJobOpen(job._id)
+                                                }
+                                                className="group flex justify-between items-center bg-white rounded-lg w-64 p-3 transition ease-in-out hover:bg-opacity-65"
+                                            >
+                                                <div>
+                                                    <h1>{job.title}</h1>
+                                                    <h2>{job.company}</h2>
+                                                    <h2>{job.location}</h2>
+                                                </div>
+                                                <div
+                                                    className="hidden group-hover:block"
+                                                    onClick={ignoreChildClick}
+                                                >
+                                                    <DeleteJob
+                                                        jobId={job._id}
+                                                        removeJob={removeJob}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+                </div>
+                <div>
+                    <div className="flex justify-center  bg-white w-64 p-5 pt-7 pb-7 rounded-lg mb-3">
+                        <div>Applied</div>
+                    </div>
+                    <div className="flex flex-row space-x-5">
+                        {jobs.length ? (
+                            <ul>
+                                {jobs.map((job) => {
+                                    return (
+                                        <li key={job._id} className="mb-3">
+                                            <div
+                                                onClick={() =>
+                                                    setCurrentJobOpen(job._id)
+                                                }
+                                                className="group flex justify-between items-center bg-white rounded-lg w-64 p-3 transition ease-in-out hover:bg-opacity-65"
+                                            >
+                                                <div>
+                                                    <h1>{job.title}</h1>
+                                                    <h2>{job.company}</h2>
+                                                    <h2>{job.location}</h2>
+                                                </div>
+                                                <div
+                                                    className="hidden group-hover:block"
+                                                    onClick={ignoreChildClick}
+                                                >
+                                                    <DeleteJob
+                                                        jobId={job._id}
+                                                        removeJob={removeJob}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+                </div>
+                <div>
+                    <div className="flex justify-center  bg-white w-64 p-5 pt-7 pb-7 rounded-lg mb-3">
+                        <div>Phone Screen</div>
+                    </div>
+                    <div className="flex flex-row space-x-5">
+                        {jobs.length ? (
+                            <ul>
+                                {jobs.map((job) => {
+                                    return (
+                                        <li key={job._id} className="mb-3">
+                                            <div
+                                                onClick={() =>
+                                                    setCurrentJobOpen(job._id)
+                                                }
+                                                className="group flex justify-between items-center bg-white rounded-lg w-64 p-3 transition ease-in-out hover:bg-opacity-65"
+                                            >
+                                                <div>
+                                                    <h1>{job.title}</h1>
+                                                    <h2>{job.company}</h2>
+                                                    <h2>{job.location}</h2>
+                                                </div>
+                                                <div
+                                                    className="hidden group-hover:block"
+                                                    onClick={ignoreChildClick}
+                                                >
+                                                    <DeleteJob
+                                                        jobId={job._id}
+                                                        removeJob={removeJob}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+                </div>
+                <div>
+                    <div className="flex justify-center  bg-white w-64 p-5 pt-7 pb-7 rounded-lg mb-3">
+                        <div>Online Assessment</div>
+                    </div>
+                    <div className="flex flex-row space-x-5">
+                        {jobs.length ? (
+                            <ul>
+                                {jobs.map((job) => {
+                                    return (
+                                        <li key={job._id} className="mb-3">
+                                            <div
+                                                onClick={() =>
+                                                    setCurrentJobOpen(job._id)
+                                                }
+                                                className="group flex justify-between items-center bg-white rounded-lg w-64 p-3 transition ease-in-out hover:bg-opacity-65"
+                                            >
+                                                <div>
+                                                    <h1>{job.title}</h1>
+                                                    <h2>{job.company}</h2>
+                                                    <h2>{job.location}</h2>
+                                                </div>
+                                                <div
+                                                    className="hidden group-hover:block"
+                                                    onClick={ignoreChildClick}
+                                                >
+                                                    <DeleteJob
+                                                        jobId={job._id}
+                                                        removeJob={removeJob}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+                </div>
+                <div>
+                    <div className="flex justify-center  bg-white w-64 p-5 pt-7 pb-7 rounded-lg mb-3">
+                        <div>Interview</div>
+                    </div>
+                    <div className="flex flex-row space-x-5">
+                        {jobs.length ? (
+                            <ul>
+                                {jobs.map((job) => {
+                                    return (
+                                        <li key={job._id} className="mb-3">
+                                            <div
+                                                onClick={() =>
+                                                    setCurrentJobOpen(job._id)
+                                                }
+                                                className="group flex justify-between items-center bg-white rounded-lg w-64 p-3 transition ease-in-out hover:bg-opacity-65"
+                                            >
+                                                <div>
+                                                    <h1>{job.title}</h1>
+                                                    <h2>{job.company}</h2>
+                                                    <h2>{job.location}</h2>
+                                                </div>
+                                                <div
+                                                    className="hidden group-hover:block"
+                                                    onClick={ignoreChildClick}
+                                                >
+                                                    <DeleteJob
+                                                        jobId={job._id}
+                                                        removeJob={removeJob}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+                </div>
             </div>
 
             <ActionBar
