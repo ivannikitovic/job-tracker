@@ -1,12 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import DeleteJob from "./delete-job";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
 import ActionBar from "./action-bar";
 import AddJob from "./add-job";
 import JobView from "./view-job";
+import Image from "next/image";
 
 export default function JobsList() {
     const [jobs, setJobs] = useState([]);
@@ -53,7 +52,7 @@ export default function JobsList() {
         wishlist: "Wishlist",
         applied: "Applied",
         screen: "Screen",
-        oa: "OA",
+        oa: "Assessment",
         interview: "Interview",
         offer: "Offer",
         rejection: "Rejection",
@@ -62,7 +61,7 @@ export default function JobsList() {
 
     const jobStack = (stage) => (
         <div>
-            <div className="flex justify-center bg-white w-64 p-5 pt-7 pb-7 rounded-lg mb-3">
+            <div className="flex text-center justify-center text-3xl text-white w-64 p-5 pt-7 pb-7 rounded-lg mb-3">
                 <h1>{jobMap[stage]}</h1>
             </div>
             <div className="flex flex-row space-x-5">
@@ -77,21 +76,30 @@ export default function JobsList() {
                                             onClick={() =>
                                                 setCurrentJobOpen(job._id)
                                             }
-                                            className="group flex justify-between items-center bg-white rounded-lg w-64 p-3 transition ease-in-out hover:bg-opacity-65"
+                                            className="group flex justify-between items-center bg-white rounded-lg w-64 pr-3 pt-3 pb-3 transition ease-in-out hover:bg-opacity-65"
                                         >
-                                            <div>
-                                                <h1>{job.title}</h1>
-                                                <h2>{job.company}</h2>
-                                                <h2>{job.location}</h2>
-                                            </div>
                                             <div
-                                                className="hidden group-hover:block"
+                                                className="flex justify-center m-auto" // todo: center this
                                                 onClick={ignoreChildClick}
                                             >
-                                                <DeleteJob
-                                                    jobId={job._id}
-                                                    removeJob={removeJob}
-                                                />
+                                                <Image
+                                                    className="bg-opacity-0 rounded-xl"
+                                                    width={40}
+                                                    height={40}
+                                                    fill={false}
+                                                    src={
+                                                        "https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                                                    }
+                                                ></Image>
+                                            </div>
+                                            <div>
+                                                <h1 className="font-semibold truncate w-44">
+                                                    {job.title}
+                                                </h1>
+                                                <h2>{job.company}</h2>
+                                                <h2 className=" font-thin">
+                                                    {job.location}
+                                                </h2>
                                             </div>
                                         </div>
                                     </li>
@@ -110,7 +118,7 @@ export default function JobsList() {
             {addJobOpen && (
                 <div
                     onClick={() => setAddJobOpen(false)}
-                    className="flex fixed inset-x-0 justify-center w-screen h-screen bg-gray-500 bg-opacity-50 z-50"
+                    className="flex fixed overflow-y-scroll inset-x-0 justify-center w-screen h-screen bg-gray-500 bg-opacity-50 z-50"
                 >
                     <div onClick={ignoreChildClick} className="flex m-auto">
                         <div className="flex bg-white p-5 rounded-lg">
@@ -126,13 +134,14 @@ export default function JobsList() {
             {currentJobOpen && (
                 <div
                     onClick={() => setCurrentJobOpen(false)}
-                    className="flex absolute inset-x-0 justify-center w-screen h-screen bg-gray-500 bg-opacity-50 z-50"
+                    className="flex fixed overflow-y-scroll inset-x-0 justify-center w-screen h-screen bg-gray-500 bg-opacity-50 z-50"
                 >
                     <div onClick={ignoreChildClick} className="flex m-auto">
                         <div className="flex bg-white p-5 rounded-lg">
                             <JobView
                                 jobId={currentJobOpen}
                                 updateJob={updateJob}
+                                removeJob={removeJob}
                                 setCurrentJobOpen={setCurrentJobOpen}
                             ></JobView>
                         </div>

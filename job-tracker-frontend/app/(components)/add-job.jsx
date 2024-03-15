@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 
@@ -84,7 +84,7 @@ export default function AddJob({ addJob, setAddJobOpen }) {
     };
 
     return (
-        <div className="flex flex-col md:w-96 w-screen md:h-auto h-screen p-5 md:p-0 lg:w-[32rem]">
+        <div className="flex flex-col w-96 md:h-auto lg:w-[32rem]">
             <div className="flex flex-col mb-3">
                 <div className="flex flex-row justify-between mb-1">
                     <label>Job Title</label>
@@ -121,7 +121,7 @@ export default function AddJob({ addJob, setAddJobOpen }) {
                     <p className="text-gray-500">Required</p>
                 </div>
                 <input
-                    name="title"
+                    name="location"
                     type="text"
                     className={`border w-full ${
                         locationMissing ? "outline outline-red-500" : ""
@@ -133,7 +133,7 @@ export default function AddJob({ addJob, setAddJobOpen }) {
             <div className="flex flex-col mb-3">
                 <label>Expected Salary</label>
                 <input
-                    name="title"
+                    name="salary"
                     type="text"
                     className="border border-gray-300 p-2.5 rounded-lg py-2"
                     placeholder="e.g. 120,000 USD"
@@ -142,8 +142,8 @@ export default function AddJob({ addJob, setAddJobOpen }) {
             </div>
             <div className="flex flex-col mb-3">
                 <label>Description</label>
-                <input
-                    name="title"
+                <textarea
+                    name="description"
                     type="text"
                     className="border border-gray-300 p-2.5 rounded-lg py-2"
                     placeholder="e.g. Entry level opening in Microsoft Teams"
@@ -156,7 +156,7 @@ export default function AddJob({ addJob, setAddJobOpen }) {
                     <p className="text-gray-500">Required</p>
                 </div>
                 <select
-                    name="title"
+                    name="stage"
                     type="text"
                     className={`border w-full ${
                         stageMissing ? "outline outline-red-500" : ""
@@ -178,8 +178,8 @@ export default function AddJob({ addJob, setAddJobOpen }) {
             <div className="flex flex-col mb-3">
                 <label>Deadline</label>
                 <input
-                    name="title"
-                    type="text"
+                    name="deadline"
+                    type="date"
                     className="border border-gray-300 p-2.5 rounded-lg py-2"
                     placeholder="e.g. 2024-05-15"
                     onChange={(e) => setDeadline(e.target.value)}
@@ -189,8 +189,8 @@ export default function AddJob({ addJob, setAddJobOpen }) {
             <div className="flex flex-col mb-5">
                 <label>URL</label>
                 <input
-                    name="title"
-                    type="text"
+                    name="url"
+                    type="url"
                     className="border border-gray-300 p-2.5 rounded-lg py-2"
                     placeholder="e.g. example.com/job/software-developer"
                     onChange={(e) => setUrl(e.target.value)}
@@ -209,13 +209,13 @@ export default function AddJob({ addJob, setAddJobOpen }) {
                 <div className="flex flex-row space-x-3">
                     <button
                         onClick={() => setAddJobOpen(false)}
-                        className="transition hover:text-blue-500 hover:bg-gray-200 text-black py-2 w-28 rounded-lg"
+                        className="transition text-white bg-red-500 hover:bg-red-400 py-2 w-28 rounded-lg"
                     >
                         Close
                     </button>
                     <button
                         onClick={() => postJob(router.refresh)}
-                        className="transition text-white bg-blue-500 border hover:bg-blue-400 border-opacity-0 py-2 w-28 rounded-lg"
+                        className="transition text-white bg-green-500 hover:bg-green-400 py-2 w-28 rounded-lg"
                     >
                         Add
                     </button>
