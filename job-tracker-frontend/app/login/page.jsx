@@ -2,11 +2,14 @@
 
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Login() {
     const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const login = async (email, password) => {
+    const login = async () => {
         const headers = {
             "Content-Type": "application/json",
         };
@@ -16,19 +19,13 @@ export default function Login() {
             password: password,
         };
 
-        let jobs = await fetch(`http://localhost:3001/user/login`, {
+        let response = await fetch(`http://localhost:3001/user/login`, {
             headers,
             method: "POST",
             body: JSON.stringify(body),
         });
 
-        return jobs.json();
-    };
-
-    const create = async (formData) => {
-        const email = formData.get("email");
-        const password = formData.get("password");
-        const response = await login(email, password);
+        response = await response.json();
 
         if ("token" in response) {
             setCookie("authToken", response.token, {
@@ -37,7 +34,7 @@ export default function Login() {
             });
             setCookie("userId", response.userId);
 
-            setTimeout(500);
+            setTimeout(1000); // TODO: figure out why delay is needed
             router.push("/");
         } else if ("error" in response) {
             console.log(response.error);
@@ -45,14 +42,42 @@ export default function Login() {
     };
 
     return (
-        <div className="m-5">
-            <form action={create}>
-                <input className="border" type="email" name="email" />
-                <input className="border" type="password" name="password" />
-                <button className="border" type="submit">
-                    Log In
-                </button>
-            </form>
+        <div className="flex fixed overflow-y-scroll inset-x-0 justify-center w-screen h-screen">
+            <div className="flex flex-col m-auto w-[20rem] md:w-[30rem] space-y-5 rounded-lg">
+                <div className="flex flex-col w-full bg-white p-5 rounded-lg">
+                    <h1 className="text-2xl font-bold mb-3">Login</h1>
+                    <div className="flex flex-col mb-3">
+                        <div className="flex flex-row justify-between mb-1">
+                            <label>Email</label>
+                            <p className="text-gray-500">Required</p>
+                        </div>
+                        <input
+                            type="email"
+                            name="email"
+                            className="border w-full border-gray-300 p-2.5 rounded-lg py-2"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div className="flex flex-col mb-3">
+                        <div className="flex flex-row justify-between mb-1">
+                            <label>Password</label>
+                            <p className="text-gray-500">Required</p>
+                        </div>
+                        <input
+                            type="password"
+                            name="password"
+                            className="border w-full border-gray-300 p-2.5 rounded-lg py-2"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <button
+                        onClick={login}
+                        className="bg-blue-500 text-white p-2.5 rounded-lg"
+                    >
+                        Log In
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }

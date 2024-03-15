@@ -19,7 +19,7 @@ export default function Nav() {
     };
 
     return (
-        <>
+        <div>
             <div className="flex h-screen fixed justify-center lg:hidden">
                 <button
                     className="m-auto opacity-60 hover:opacity-100 transition pt-6 pb-6 pr-3 pl-3 rounded-r-lg bg-gray-300"
@@ -73,6 +73,6 @@ export default function Nav() {
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 }

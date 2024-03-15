@@ -98,7 +98,6 @@ export default function JobsList() {
                                                     className="bg-opacity-0"
                                                     width={40}
                                                     height={40}
-                                                    fill={false}
                                                     src={`https://logo.clearbit.com/${job.company}.com`}
                                                     onError={(e) => {
                                                         const color =
