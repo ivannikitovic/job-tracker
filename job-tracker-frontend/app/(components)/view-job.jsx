@@ -148,12 +148,12 @@ export default function JobView({
                     <p className="text-gray-500">Required</p>
                 </div>
                 <input
-                    disabled={!isEditing}
+                    disabled
                     name="company"
                     type="text"
                     className={`border w-full ${
                         companyMissing ? "outline outline-red-500" : ""
-                    } border-gray-300 p-2.5 rounded-lg py-2`}
+                    } border-gray-300 p-2.5 text-gray-400 rounded-lg py-2`}
                     placeholder="e.g. Microsoft"
                     defaultValue={company}
                     onChange={(e) => setCompany(e.target.value)}

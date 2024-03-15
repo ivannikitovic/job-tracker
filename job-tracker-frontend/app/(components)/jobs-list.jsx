@@ -5,7 +5,6 @@ import { getCookie } from "cookies-next";
 import ActionBar from "./action-bar";
 import AddJob from "./add-job";
 import JobView from "./view-job";
-import Image from "next/image";
 
 export default function JobsList() {
     const [jobs, setJobs] = useState([]);
@@ -33,6 +32,20 @@ export default function JobsList() {
 
     const ignoreChildClick = (e) => {
         e.stopPropagation();
+    };
+
+    const stringToColor = (str) => {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        }
+
+        let color = "#";
+        for (let i = 0; i < 3; i++) {
+            const value = (hash >> (i * 8)) & 0xff;
+            color += ("00" + value.toString(16)).substr(-2);
+        }
+        return color;
     };
 
     useEffect(() => {
@@ -80,24 +93,33 @@ export default function JobsList() {
                                         >
                                             <div
                                                 className="flex justify-center m-auto" // todo: center this
-                                                onClick={ignoreChildClick}
                                             >
-                                                <Image
-                                                    className="bg-opacity-0 rounded-xl"
+                                                <img
+                                                    className="bg-opacity-0"
                                                     width={40}
                                                     height={40}
                                                     fill={false}
-                                                    src={
-                                                        "https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
-                                                    }
-                                                ></Image>
+                                                    src={`https://logo.clearbit.com/${job.company}.com`}
+                                                    onError={(e) => {
+                                                        const color =
+                                                            stringToColor(
+                                                                job.company
+                                                            ); // Generate color based on the company name
+                                                        e.target.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="100%" height="100%" fill="${encodeURIComponent(
+                                                            color
+                                                        )}" /></svg>`;
+                                                    }}
+                                                    alt={"Company logo"}
+                                                ></img>
                                             </div>
                                             <div>
                                                 <h1 className="font-semibold truncate w-44">
                                                     {job.title}
                                                 </h1>
-                                                <h2>{job.company}</h2>
-                                                <h2 className=" font-thin">
+                                                <h2 className="truncate w-44">
+                                                    {job.company}
+                                                </h2>
+                                                <h2 className="font-thin truncate w-44">
                                                     {job.location}
                                                 </h2>
                                             </div>

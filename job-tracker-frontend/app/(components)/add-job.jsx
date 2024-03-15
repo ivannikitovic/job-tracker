@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
+import CreatableSelect from "react-select/creatable";
 
 export default function AddJob({ addJob, setAddJobOpen }) {
     const router = useRouter();
@@ -22,6 +23,33 @@ export default function AddJob({ addJob, setAddJobOpen }) {
     const [companyMissing, setCompanyMissing] = useState(false);
     const [locationMissing, setLocationMissing] = useState(false);
     const [stageMissing, setStageMissing] = useState(false);
+
+    const companies = [
+        {
+            value: "Meta",
+            label: "Meta",
+        },
+        {
+            value: "Microsoft",
+            label: "Microsoft",
+        },
+        {
+            value: "Google",
+            label: "Google",
+        },
+        {
+            value: "Amazon",
+            label: "Amazon",
+        },
+        {
+            value: "Apple",
+            label: "Apple",
+        },
+        {
+            value: "Netflix",
+            label: "Netflix",
+        },
+    ];
 
     const postJob = async (refresh) => {
         const body = {
@@ -105,14 +133,31 @@ export default function AddJob({ addJob, setAddJobOpen }) {
                     <label>Company</label>
                     <p className="text-gray-500">Required</p>
                 </div>
-                <input
-                    name="company"
-                    type="text"
-                    className={`border w-full ${
-                        companyMissing ? "outline outline-red-500" : ""
-                    } border-gray-300 p-2.5 rounded-lg py-2`}
-                    placeholder="e.g. Microsoft"
-                    onChange={(e) => setCompany(e.target.value)}
+                <CreatableSelect
+                    isClearable
+                    options={companies}
+                    theme={(theme) => ({
+                        ...theme,
+                        borderRadius: "0.5rem",
+                        colors: {
+                            ...theme.colors,
+                            primary: "#3b82f6",
+                        },
+                    })}
+                    styles={{
+                        control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            paddingTop: "0.125rem",
+                            paddingBottom: "0.125rem",
+                            borderColor: "#d1d5db",
+                            outline: companyMissing ? "3px solid #ef4444" : "",
+                            borderWidth: "1px",
+                            boxShadow: "0 !important",
+                        }),
+                    }}
+                    onChange={(company) =>
+                        setCompany(company ? company.value : "")
+                    }
                 />
             </div>
             <div className="flex flex-col mb-3">
