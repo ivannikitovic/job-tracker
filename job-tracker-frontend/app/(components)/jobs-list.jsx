@@ -89,7 +89,7 @@ export default function JobsList() {
                                             onClick={() =>
                                                 setCurrentJobOpen(job._id)
                                             }
-                                            className="group flex justify-between items-center bg-white rounded-lg w-64 pr-3 pt-3 pb-3 transition ease-in-out hover:bg-opacity-65"
+                                            className="group flex justify-between items-center bg-white rounded-lg w-64 pr-3 pt-3 pb-3 transition ease-in-out hover:opacity-75"
                                         >
                                             <div
                                                 className="flex justify-center m-auto" // todo: center this

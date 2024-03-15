@@ -10,7 +10,7 @@ export default function ActionBar({ addJobOpen, setAddJobOpen }) {
     };
     return (
         <div className="flex flex-row fixed inset-x-0 bottom-10 justify-center">
-            <div className="flex pl-5 pr-5 pt-1 pb-1 rounded-full bg-blue-500 text-white space-x-5">
+            <div className="opacity-50 hover:opacity-100 transition ease-in-out flex pl-5 pr-5 pt-1 pb-1 rounded-full bg-blue-500 text-white space-x-5">
                 <button
                     className="flex flex-col items-center transition ease-in-out hover:text-gray-300 hover:bg-gray-500 hover:bg-opacity-50 rounded-full pl-5 pr-5 p-3"
                     onClick={toggleJobOpen}
