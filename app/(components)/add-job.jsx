@@ -109,7 +109,7 @@ export default function AddJob({ addJob, setAddJobOpen }) {
     };
 
     return (
-        <div className="flex flex-col w-96 md:h-auto lg:w-[32rem]">
+        <div className="flex flex-col w-80 md:h-auto lg:w-[32rem]">
             <div className="flex flex-col mb-3">
                 <div className="flex flex-row justify-between mb-1">
                     <label>Job Title</label>

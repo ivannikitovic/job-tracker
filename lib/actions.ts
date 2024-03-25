@@ -30,5 +30,5 @@ export async function logout() {
 export async function getUserId() {
     "use server";
     const session = await auth();
-    return session.userId;
+    return session["userId"];
 }

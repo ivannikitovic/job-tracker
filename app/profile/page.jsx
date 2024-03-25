@@ -16,8 +16,8 @@ export default function Profile() {
     };
 
     return (
-        <div className="flex fixed overflow-y-scroll inset-x-0 justify-center w-screen h-screen">
-            <div className="flex flex-col w-[30rem] xl:w-[40rem] space-y-5 rounded-lg pt-5">
+        <div className="flex fixed overflow-y-scroll inset-x-0 justify-center w-screen h-full">
+            <div className="flex flex-col w-80 md:w-[40rem] space-y-5 rounded-lg pt-5">
                 <div className="flex flex-col w-full bg-white p-5 rounded-lg">
                     <h1 className="text-2xl font-bold mb-3">Profile</h1>
                     <p className="text-gray-500">Welcome to your profile.</p>
@@ -80,7 +80,7 @@ export default function Profile() {
                         Change Email
                     </button>
                 </div>
-                <div className="flex flex-col w-full rounded-lg">
+                <div className="flex flex-col w-full rounded-lg pb-5">
                     <form action={logout}>
                         <button className="bg-red-500 hover:bg-red-600 transition ease-in-out text-white font-bold py-2 px-4 rounded-lg">
                             <div>Sign Out</div>

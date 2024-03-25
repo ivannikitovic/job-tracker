@@ -134,7 +134,7 @@ export default function JobsList() {
             {addJobOpen && (
                 <div
                     onClick={() => setAddJobOpen(false)}
-                    className="flex fixed overflow-y-scroll inset-x-0 justify-center w-screen h-screen bg-gray-500 bg-opacity-50 z-50"
+                    className="flex fixed overflow-y-scroll inset-x-0 justify-center w-screen h-screen bg-gray-500 bg-opacity-50 z-50 sm:p-0 pt-[3rem] pb-[10rem]"
                 >
                     <div onClick={ignoreChildClick} className="flex m-auto">
                         <div className="flex bg-white p-5 rounded-lg">
@@ -150,7 +150,7 @@ export default function JobsList() {
             {currentJobOpen && (
                 <div
                     onClick={() => setCurrentJobOpen(false)}
-                    className="flex fixed overflow-y-scroll inset-x-0 justify-center w-screen h-screen bg-gray-500 bg-opacity-50 z-50"
+                    className="flex fixed overflow-y-scroll inset-x-0 justify-center w-screen h-screen bg-gray-500 bg-opacity-50 z-50 sm:p-0 pt-[3rem] pb-[10rem]"
                 >
                     <div onClick={ignoreChildClick} className="flex m-auto">
                         <div className="flex bg-white p-5 rounded-lg">

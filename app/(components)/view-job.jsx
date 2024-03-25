@@ -116,7 +116,7 @@ export default function JobView({
     }, []);
 
     return (
-        <div className="flex flex-col w-96 md:h-auto lg:w-[32rem]">
+        <div className="flex flex-col w-80 md:h-auto lg:w-[32rem]">
             <div className="flex flex-col mb-3">
                 <div className="flex flex-row justify-between mb-1">
                     <label>Job Title</label>
@@ -274,7 +274,7 @@ export default function JobView({
                 )}
                 <div>
                     {status === true && (
-                        <p className="text-green-500">Job added.</p>
+                        <p className="text-green-500">Job edited.</p>
                     )}
                     {status === false && (
                         <p className="text-red-500">Encountered error.</p>
