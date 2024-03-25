@@ -1,6 +1,5 @@
 "use client";
 
-import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { GoTrash } from "react-icons/go";
@@ -12,7 +11,6 @@ export default function JobView({
     setCurrentJobOpen,
 }) {
     const router = useRouter();
-    const [userId, setUserId] = useState(getCookie("userId"));
     const [status, setStatus] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -71,9 +69,8 @@ export default function JobView({
             "Content-Type": "application/json",
         };
 
-        let response = await fetch(`jobs/${userId}/${jobId}`, {
+        let response = await fetch(`api/jobs/${jobId}`, {
             headers,
-            credentials: "include",
             method: "PUT",
             body: JSON.stringify(body),
         });
@@ -92,13 +89,9 @@ export default function JobView({
     };
 
     const deleteJob = async () => {
-        let response = await fetch(
-            `http://localhost:3001/jobs/${userId}/${jobId}`,
-            {
-                credentials: "include",
-                method: "DELETE",
-            }
-        );
+        let response = await fetch(`api/jobs/${jobId}`, {
+            method: "DELETE",
+        });
 
         if (response.ok) {
             removeJob(jobId);
@@ -106,8 +99,7 @@ export default function JobView({
     };
 
     useEffect(() => {
-        fetch(`http://localhost:3001/jobs/${userId}/${jobId}`, {
-            credentials: "include",
+        fetch(`api/jobs/${jobId}`, {
             cache: "no-store",
         })
             .then((response) => response.json())

@@ -1,44 +1,14 @@
 "use client";
 
-import { setCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
+import { authenticate } from "../../lib/actions";
 import { useState } from "react";
 
 export default function Login() {
-    const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const login = async () => {
-        const headers = {
-            "Content-Type": "application/json",
-        };
-
-        const body = {
-            email: email,
-            password: password,
-        };
-
-        let response = await fetch(`http://localhost:3001/user/login`, {
-            headers,
-            method: "POST",
-            body: JSON.stringify(body),
-        });
-
-        response = await response.json();
-
-        if ("token" in response) {
-            setCookie("authToken", response.token, {
-                // httpOnly: true, TODO: add secure cookies
-                // secure: true,
-            });
-            setCookie("userId", response.userId);
-
-            setTimeout(1000); // TODO: figure out why delay is needed
-            router.push("/");
-        } else if ("error" in response) {
-            console.log(response.error);
-        }
+    const logIn = async () => {
+        await authenticate(null, { email, password });
     };
 
     return (
@@ -71,7 +41,7 @@ export default function Login() {
                         />
                     </div>
                     <button
-                        onClick={login}
+                        onClick={logIn}
                         className="bg-blue-500 text-white p-2.5 rounded-lg"
                     >
                         Log In

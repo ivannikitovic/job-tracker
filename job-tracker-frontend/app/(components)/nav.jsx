@@ -1,14 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import logo from "../../public/next.svg";
-import { getCookie } from "cookies-next";
 
 export default function Nav() {
     const [isOpen, setIsOpen] = useState(false);
-    const [userId, setUserId] = useState(getCookie("userId"));
 
     const openMenu = () => {
         setIsOpen(true);
@@ -43,7 +41,7 @@ export default function Nav() {
                             ></Image>
                         </div>
                         <Link
-                            href={`/`}
+                            href={`/dashboard`}
                             onClick={closeMenu}
                             className="p-4 flex justify-center hover:bg-gray-300 hover:text-blue-500 transition ease-in-out rounded-lg m-1 mb-0"
                         >

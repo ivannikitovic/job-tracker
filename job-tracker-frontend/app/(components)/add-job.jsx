@@ -2,12 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { getCookie } from "cookies-next";
 import CreatableSelect from "react-select/creatable";
 
 export default function AddJob({ addJob, setAddJobOpen }) {
     const router = useRouter();
-    const [userId, setUserId] = useState(getCookie("userId"));
     const [status, setStatus] = useState(null);
 
     const [title, setTitle] = useState("");
@@ -92,9 +90,8 @@ export default function AddJob({ addJob, setAddJobOpen }) {
             "Content-Type": "application/json",
         };
 
-        let response = await fetch(`jobs/${userId}`, {
+        let response = await fetch(`api/jobs`, {
             headers,
-            credentials: "include",
             method: "POST",
             body: JSON.stringify(body),
         });

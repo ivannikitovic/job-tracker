@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getCookie } from "cookies-next";
 import ActionBar from "./action-bar";
 import AddJob from "./add-job";
 import JobView from "./view-job";
 
 export default function JobsList() {
     const [jobs, setJobs] = useState([]);
-    const [userId, setUserId] = useState(getCookie("userId"));
     const [addJobOpen, setAddJobOpen] = useState(false);
     const [currentJobOpen, setCurrentJobOpen] = useState(null);
 
@@ -49,16 +47,13 @@ export default function JobsList() {
     };
 
     useEffect(() => {
-        if (userId) {
-            fetch(`http://localhost:3001/jobs/${userId}`, {
-                credentials: "include",
-                cache: "no-store",
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    setJobs(data);
-                });
-        }
+        fetch(`api/jobs`, {
+            cache: "no-store",
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setJobs(data);
+            });
     }, []);
 
     const jobMap = {

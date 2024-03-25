@@ -1,17 +1,11 @@
 "use client";
 
 import React from "react";
-import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import { logout } from "../../lib/actions";
 
 export default function Profile() {
     const router = useRouter();
-
-    const logOut = () => {
-        router.push("/login");
-        deleteCookie("authToken");
-        deleteCookie("userId");
-    };
 
     const changePassword = () => {
         console.log("Not implemented yet");
@@ -22,8 +16,8 @@ export default function Profile() {
     };
 
     return (
-        <div className="flex fixed overflow-y-scroll inset-x-0 justify-center w-screen h-auto mt-5">
-            <div className="flex flex-col w-[30rem] xl:w-[40rem] space-y-5 rounded-lg">
+        <div className="flex fixed overflow-y-scroll inset-x-0 justify-center w-screen h-screen">
+            <div className="flex flex-col w-[30rem] xl:w-[40rem] space-y-5 rounded-lg pt-5">
                 <div className="flex flex-col w-full bg-white p-5 rounded-lg">
                     <h1 className="text-2xl font-bold mb-3">Profile</h1>
                     <p className="text-gray-500">Welcome to your profile.</p>
@@ -87,12 +81,11 @@ export default function Profile() {
                     </button>
                 </div>
                 <div className="flex flex-col w-full rounded-lg">
-                    <button
-                        onClick={logOut}
-                        className="bg-red-500 hover:bg-red-600 transition ease-in-out text-white font-bold py-2 px-4 rounded-lg"
-                    >
-                        Log Out
-                    </button>
+                    <form action={logout}>
+                        <button className="bg-red-500 hover:bg-red-600 transition ease-in-out text-white font-bold py-2 px-4 rounded-lg">
+                            <div>Sign Out</div>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
